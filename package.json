@@ -4,8 +4,8 @@
     "scripts": {
         "bootstrap": "yarn",
         "dev": "vite --host --open",
-        "build": "vue-tsc --noEmit && vite build",
-        "deploy-test": "cross-env NODE_ENV=production && ts-node ./scripts/deploy.ts"
+        "build": "vite build",
+        "deploy-test": "ts-node ./scripts/deploy.ts"
     },
     "dependencies": {
         "pinia": "^2.0.0-alpha.19",
@@ -17,7 +17,6 @@
         "@vitejs/plugin-vue": "^1.2.2",
         "@vitejs/plugin-vue-jsx": "^1.1.4",
         "@vue/compiler-sfc": "^3.0.5",
-        "cross-env": "^7.0.3",
         "less": "^4.1.1",
         "prettier": "^2.3.0",
         "ts-node": "^10.0.0",
