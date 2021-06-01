@@ -1,7 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import routes from './routers';
 import type { App } from 'vue';
-
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 // app router
@@ -16,5 +15,13 @@ const router = createRouter({
 export function setupRouter(app: App<Element>) {
     app.use(router);
 }
+
+router.afterEach((to) => {
+    window.document.title = (
+        to.meta.title
+            ? to.meta.title + ' - ' + import.meta.env.VITE_APP_TITLE
+            : import.meta.env.VITE_APP_TITLE
+    ) as string;
+});
 
 export default router;

@@ -16,7 +16,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     const root = process.cwd();
     const env = loadEnv(mode, root);
     const viteEnv = wrapperEnv(env);
-    const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE } = viteEnv;
+    const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_OUTPUT_DIR } = viteEnv;
 
     return {
         base: VITE_PUBLIC_PATH,
@@ -41,11 +41,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         build: {
             target: 'es2015',
-            outDir: '/',
+            outDir: VITE_OUTPUT_DIR,
             terserOptions: {
                 compress: {
                     keep_infinity: true,
-                    // 生产环境console是否显示
+                    // 是否显示console内容
                     drop_console: VITE_DROP_CONSOLE,
                 },
             },

@@ -31,12 +31,14 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
+        "types/*.d.ts",
+        "types/*.ts",
         "types/**/*.d.ts",
         "types/**/*.ts",
-        "build/**/*.ts",
-        "build/**/*.d.ts",
-        "mock/**/*.ts",
-        "vite.config.ts"
+        "build/*.d.ts",
+        "build/*.ts",
+        "vite.config.ts",
+        "scripts/*.ts"
     ],
     "exclude": ["node_modules", "dist", "**/*.js"]
 }
