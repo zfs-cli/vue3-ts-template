@@ -5,7 +5,7 @@ export default [
         meta: {
             title: '首页',
         },
-        component: () => import('/@/pages/index/index.vue'),
+        component: () => import('/@/pages/index/index'),
         children: [],
     },
 ];
