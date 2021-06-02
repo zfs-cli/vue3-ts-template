@@ -23,6 +23,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { createNow, formatRequestDate } from './helper';
 
 const globSetting = useGlobSetting();
+
 const prefix = globSetting.urlPrefix;
 const { createMessage, createErrorModal } = useMessage();
 

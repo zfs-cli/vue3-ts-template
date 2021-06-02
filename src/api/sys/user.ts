@@ -1,7 +1,7 @@
-import fetch from '/@/utils/axios';
+import fetch from '/@/utils/fetch';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
-import { ErrorMessageMode } from '/@/utils/axios/types';
+import { ErrorMessageMode } from '/@/utils/fetch/types';
 
 enum Api {
     Login = '/login',

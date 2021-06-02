@@ -1,5 +1,5 @@
 import type { UserInfo } from '/#/store';
-import type { ErrorMessageMode } from '/@/utils/axios/types';
+import type { ErrorMessageMode } from '/@/utils/fetch/types';
 
 import { defineStore } from 'pinia';
 import store from '/@/store';

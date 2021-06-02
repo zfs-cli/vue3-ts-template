@@ -2,9 +2,10 @@ import type { UserConfig, ConfigEnv } from 'vite';
 
 const { resolve } = require('path');
 import { loadEnv } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
+
 import { wrapperEnv } from './build/utils';
+import { createVitePlugins } from './build/vite/plugin/index';
+import { generateModifyVars } from './build/generate/generateModifyVars';
 
 function pathResolve(dir: string) {
     return resolve(process.cwd(), '.', dir);
@@ -15,13 +16,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
     const root = process.cwd();
     const env = loadEnv(mode, root);
+    const isBuild = command === 'build';
     const viteEnv = wrapperEnv(env);
     const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_OUTPUT_DIR } = viteEnv;
 
     return {
         base: VITE_PUBLIC_PATH,
         root,
-        plugins: [vue(), vueJsx()],
+        // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
+        plugins: createVitePlugins(viteEnv, isBuild),
         resolve: {
             alias: [
                 // src/xxxx => /@/xxxx
@@ -38,6 +41,17 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         server: {
             port: VITE_PORT,
+            // hmr: {
+            //     overlay: false,
+            // },
+        },
+        css: {
+            preprocessorOptions: {
+                less: {
+                    modifyVars: generateModifyVars(),
+                    javascriptEnabled: true,
+                },
+            },
         },
         build: {
             target: 'es2015',

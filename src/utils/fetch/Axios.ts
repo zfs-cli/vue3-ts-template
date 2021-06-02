@@ -78,9 +78,9 @@ export class VAxios {
 
         const axiosCanceler = new AxiosCanceler();
 
-        // Request interceptor configuration processing
+        // 请求结果拦截器处理
         this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
-            // If cancel repeat request is turned on, then cancel repeat request is prohibited
+            // 如果取消重复请求被打开，则禁止取消重复请求。
             const {
                 headers: { ignoreCancelToken },
             } = config;
@@ -97,12 +97,12 @@ export class VAxios {
             return config;
         }, undefined);
 
-        // Request interceptor error capture
+        // 请求拦截器错误捕获
         requestInterceptorsCatch &&
             isFunction(requestInterceptorsCatch) &&
             this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch);
 
-        // Response result interceptor processing
+        // 响应结果拦截器处理
         this.axiosInstance.interceptors.response.use((res: AxiosResponse<any>) => {
             res && axiosCanceler.removePending(res.config);
             if (responseInterceptors && isFunction(responseInterceptors)) {
@@ -111,7 +111,7 @@ export class VAxios {
             return res;
         }, undefined);
 
-        // Response result interceptor error capture
+        // 响应拦截器错误捕获
         responseInterceptorsCatch &&
             isFunction(responseInterceptorsCatch) &&
             this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch);
