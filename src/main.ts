@@ -1,7 +1,7 @@
 import '/@/styles/index.less';
 
 import { createApp } from 'vue';
-import App from './App.vue';
+import App from './App';
 import router, { setupRouter } from '/@/router';
 import { setupStore } from '/@/store';
 
