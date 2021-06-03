@@ -24,10 +24,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     return {
         base: VITE_PUBLIC_PATH,
         root,
-        // The vite plugin used by the project. The quantity is large, so it is separately extracted and managed
         plugins: createVitePlugins(viteEnv, isBuild),
         resolve: {
             alias: [
+                {
+                    find: 'vue-i18n',
+                    replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+                },
                 // src/xxxx => /@/xxxx
                 {
                     find: /\/@\//,

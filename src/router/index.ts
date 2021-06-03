@@ -16,12 +16,4 @@ export function setupRouter(app: App<Element>) {
     app.use(router);
 }
 
-router.afterEach((to) => {
-    window.document.title = (
-        to.meta.title
-            ? to.meta.title + ' - ' + import.meta.env.VITE_APP_TITLE
-            : import.meta.env.VITE_APP_TITLE
-    ) as string;
-});
-
 export default router;
