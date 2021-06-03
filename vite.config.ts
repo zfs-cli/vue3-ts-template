@@ -6,6 +6,7 @@ import { loadEnv } from 'vite';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin/index';
 import { generateModifyVars } from './build/generate/generateModifyVars';
+import { OUTPUT_DIR } from './build/constant';
 
 function pathResolve(dir: string) {
     return resolve(process.cwd(), '.', dir);
@@ -18,7 +19,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     const env = loadEnv(mode, root);
     const isBuild = command === 'build';
     const viteEnv = wrapperEnv(env);
-    const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_OUTPUT_DIR } = viteEnv;
+    const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE } = viteEnv;
 
     return {
         base: VITE_PUBLIC_PATH,
@@ -55,7 +56,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         build: {
             target: 'es2015',
-            outDir: VITE_OUTPUT_DIR,
+            outDir: OUTPUT_DIR,
             terserOptions: {
                 compress: {
                     keep_infinity: true,

@@ -1,8 +1,9 @@
-const { loadEnv } = require('vite');
-const project = loadEnv('production', process.cwd()).VITE_OUTPUT_DIR;
+const project = require('../build/constant').OUTPUT_DIR;
 const os = require(`child_process`).execSync;
 const ip = '172.16.200.38';
 const src = 'apps/web';
+
+main();
 
 function main() {
     console.log('开始部署', ip);

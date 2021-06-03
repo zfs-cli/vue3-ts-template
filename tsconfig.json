@@ -38,7 +38,8 @@
         "build/*.d.ts",
         "build/*.ts",
         "vite.config.ts",
-        "scripts/*.ts"
+        "scripts/*.ts",
+        "build/script/deploy.ts"
     ],
     "exclude": ["node_modules", "dist", "**/*.js"]
 }
