@@ -25,6 +25,7 @@
         "@vue/compiler-sfc": "^3.0.5",
         "@vueuse/core": "^4.11.2",
         "dotenv": "^10.0.0",
+        "eslint": "^7.27.0",
         "esno": "^0.6.0",
         "fs-extra": "^10.0.0",
         "less": "^4.1.1",

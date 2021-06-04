@@ -4,7 +4,7 @@ export default defineComponent({
     name: 'index',
     setup() {
         return () => {
-            return <div>首页123</div>;
+            return <div>首页123123</div>;
         };
     },
 });

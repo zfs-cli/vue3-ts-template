@@ -4,23 +4,20 @@ import type { ErrorMessageMode } from '/@/utils/fetch/types';
 import { defineStore } from 'pinia';
 import store from '/@/store';
 
-import { RoleEnum } from '/@/enums/roleEnum';
 import { PageEnum } from '/@/enums/pageEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
+import { TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
 
 import { getUserInfo, loginApi } from '/@/api/sys/user';
 
-import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import router from '/@/router';
 
 interface UserState {
     userInfo: Nullable<UserInfo>;
     token?: string;
-    roleList: RoleEnum[];
     sessionTimeout?: boolean;
 }
 
@@ -31,8 +28,6 @@ export const useUserStore = defineStore({
         userInfo: null,
         // token
         token: undefined,
-        // roleList
-        roleList: [],
         // Whether the login expired
         sessionTimeout: false,
     }),
@@ -43,9 +38,6 @@ export const useUserStore = defineStore({
         getToken(): string {
             return this.token || getAuthCache<string>(TOKEN_KEY);
         },
-        getRoleList(): RoleEnum[] {
-            return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
-        },
         getSessionTimeout(): boolean {
             return !!this.sessionTimeout;
         },
@@ -54,10 +46,6 @@ export const useUserStore = defineStore({
         setToken(info: string | undefined) {
             this.token = info;
             setAuthCache(TOKEN_KEY, info);
-        },
-        setRoleList(roleList: RoleEnum[]) {
-            this.roleList = roleList;
-            setAuthCache(ROLES_KEY, roleList);
         },
         setUserInfo(info: UserInfo) {
             this.userInfo = info;
@@ -69,7 +57,6 @@ export const useUserStore = defineStore({
         resetState() {
             this.userInfo = null;
             this.token = '';
-            this.roleList = [];
             this.sessionTimeout = false;
         },
         /**
@@ -101,10 +88,7 @@ export const useUserStore = defineStore({
         },
         async getUserInfoAction() {
             const userInfo = await getUserInfo();
-            const { roles } = userInfo;
-            const roleList = roles.map((item) => item.value) as RoleEnum[];
             this.setUserInfo(userInfo);
-            this.setRoleList(roleList);
             return userInfo;
         },
         /**
@@ -119,11 +103,10 @@ export const useUserStore = defineStore({
          */
         confirmLoginOut() {
             const { createConfirm } = useMessage();
-            const { t } = useI18n();
             createConfirm({
                 iconType: 'warning',
-                title: t('sys.app.logoutTip'),
-                content: t('sys.app.logoutMessage'),
+                title: '温馨提醒',
+                content: '是否确认退出系统',
                 onOk: async () => {
                     await this.logout(true);
                 },

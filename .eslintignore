@@ -1,0 +1,7 @@
+node_modules
+*.md
+.vscode
+.idea
+dist
+/public
+.local
