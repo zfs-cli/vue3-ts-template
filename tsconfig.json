@@ -33,8 +33,6 @@
         "src/**/*.vue",
         "types/*.d.ts",
         "types/*.ts",
-        "types/**/*.d.ts",
-        "types/**/*.ts",
         "build/*.d.ts",
         "build/*.ts",
         "vite.config.ts",
